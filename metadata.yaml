@@ -1,0 +1,6 @@
+name: astrbot_plugin_openlist_share # 插件唯一识别名
+display_name: OpenList 共享 # 插件展示名
+desc: 群文件共享助手：LLM 审核后上传文件到 OpenList，查询文件列表并返回分享链接。 # 插件描述
+version: v1.0.0 # 插件版本号
+author: doubao # 作者
+repo: https://github.com/your_github/astrbot_plugin_openlist_share # 插件仓库地址（发布时请替换）

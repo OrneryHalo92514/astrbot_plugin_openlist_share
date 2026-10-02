@@ -1,0 +1,143 @@
+{
+    "connection": {
+        "type": "object",
+        "description": "OpenList 连接",
+        "hint": "服务器地址与账号信息。敏感信息只保存在插件设置中，绝不会在群聊中展示。",
+        "items": {
+            "openlist_url": {
+                "description": "OpenList 地址",
+                "type": "string",
+                "default": "",
+                "hint": "例如 http://127.0.0.1:5244"
+            },
+            "public_openlist_url": {
+                "description": "公网分享地址（可选）",
+                "type": "string",
+                "default": "",
+                "hint": "当 openlist_url 是内网地址时，填写公网可访问的地址，用于生成群内可点开的分享链接"
+            },
+            "username": {
+                "description": "登录用户名",
+                "type": "string",
+                "default": "",
+                "secret": true,
+                "hint": "留空表示匿名访问"
+            },
+            "password": {
+                "description": "登录密码",
+                "type": "string",
+                "default": "",
+                "secret": true,
+                "hint": "用户名不为空时必填"
+            }
+        }
+    },
+    "permission": {
+        "type": "object",
+        "description": "使用权限",
+        "hint": "控制哪些群可以使用本插件。",
+        "items": {
+            "allowed_groups": {
+                "description": "允许使用的群号（多群）",
+                "type": "list",
+                "default": [],
+                "hint": "可添加多个群号；留空表示所有群均可使用"
+            },
+            "allow_private_chat": {
+                "description": "允许私聊使用",
+                "type": "bool",
+                "default": false,
+                "hint": "开启后私聊也能使用本插件"
+            }
+        }
+    },
+    "upload": {
+        "type": "object",
+        "description": "上传设置",
+        "hint": "上传相关的路径、大小、扩展名与文件名备注规则。",
+        "items": {
+            "default_upload_path": {
+                "description": "默认上传目录",
+                "type": "string",
+                "default": "/",
+                "hint": "发送 /ol up 未指定目录时，文件上传到此目录"
+            },
+            "max_upload_size_mb": {
+                "description": "最大上传大小（MB）",
+                "type": "int",
+                "default": 100,
+                "minimum": 0,
+                "maximum": 10240,
+                "slider": {"min": 0, "max": 10240, "step": 1},
+                "hint": "0 表示不限制"
+            },
+            "allowed_extensions": {
+                "description": "允许的扩展名",
+                "type": "text",
+                "default": "",
+                "hint": "逗号分隔，如 txt,pdf,zip；留空表示不限制"
+            },
+            "rename_with_uploader": {
+                "description": "文件名备注上传者",
+                "type": "bool",
+                "default": true,
+                "hint": "开启后按下方模板在文件名中备注上传者信息"
+            },
+            "rename_template": {
+                "description": "文件名备注模板",
+                "type": "string",
+                "default": "[{uploader}]{filename}",
+                "hint": "支持占位符 {uploader}（上传者昵称）、{filename}（原文件名）；留空则不改名"
+            }
+        }
+    },
+    "llm_review": {
+        "type": "object",
+        "description": "LLM 审核",
+        "hint": "上传文件的 AI 审核配置。",
+        "items": {
+            "enable": {
+                "description": "启用 LLM 审核",
+                "type": "bool",
+                "default": true,
+                "hint": "关闭后上传不再经过审核"
+            },
+            "provider": {
+                "description": "审核模型提供商",
+                "type": "string",
+                "default": "",
+                "_special": "select_provider",
+                "hint": "在管理面板选择已配置的模型提供商；留空则使用当前会话模型"
+            },
+            "system_prompt": {
+                "description": "审核提示词",
+                "type": "text",
+                "default": "<default>",
+                "hint": "自定义审核规则；填写 <default> 或留空使用内置默认提示词"
+            },
+            "text_preview_chars": {
+                "description": "文本预览长度（字符）",
+                "type": "int",
+                "default": 2000,
+                "minimum": 0,
+                "maximum": 20000,
+                "slider": {"min": 0, "max": 20000, "step": 100},
+                "hint": "文本类文件送给 LLM 审核的最大字符数；0 表示不预览文件内容"
+            }
+        }
+    },
+    "display": {
+        "type": "object",
+        "description": "显示设置",
+        "items": {
+            "max_list_items": {
+                "description": "列表最大显示条数",
+                "type": "int",
+                "default": 30,
+                "minimum": 1,
+                "maximum": 100,
+                "slider": {"min": 1, "max": 100, "step": 1}
+            }
+        }
+    }
+}
